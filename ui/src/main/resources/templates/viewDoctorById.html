@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0; /* Light blue background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 50%;
+            max-width: 800px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Poppins', serif;
+            font-size: 32px;
+            color: #000; /* Light blue heading */
+            margin-bottom: 20px;
+        }
+
+        /* Details Styling */
+        .details {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .details p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .details strong {
+            color: #000; /* Light blue for labels */
+        }
+
+		.error {
+		   color: #ff4d4d; /* Red for errors */
+		   font-size: 16px;
+		   margin-bottom: 20px;
+		}
+
+        /* Button Styling */
+        .btn {
+            background: linear-gradient(135deg, #1e90ff, #00bfff); /* Light blue gradient */
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(30, 144, 255, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 80%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Doctor Details</h2>
+
+        <!-- Doctor Details -->
+        <div th:if="${doctor}" class="details">
+            <p><strong>Doctor ID:</strong> <span th:text="${doctor.doctorId}"></span></p>
+            <p><strong>Name:</strong> <span th:text="${doctor.doctorName.firstName} + ' ' + ${doctor.doctorName.lastName}"></span></p>
+            <p><strong>Specialization:</strong> <span th:text="${doctor.specialization}"></span></p>
+            <p><strong>Qualification:</strong> <span th:text="${doctor.qualification}"></span></p>
+            <p><strong>Contact Number:</strong> <span th:text="${doctor.contactNumber}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${doctor.emailId}"></span></p>
+            <p><strong>Gender:</strong> <span th:text="${doctor.gender}"></span></p>
+            <p><strong>Location:</strong> <span th:text="${doctor.location}"></span></p>
+            <p><strong>Consultation Fee:</strong> <span th:text="${doctor.consultationFees}"></span></p>
+            <p><strong>Date of Joining:</strong> <span th:text="${doctor.dateOfJoining}"></span></p>
+            <p><strong>Is Surgeon:</strong> <span th:text="${doctor.isSurgeon} ? 'Yes' : 'No'"></span></p>
+            <p><strong>Years of Experience:</strong> <span th:text="${doctor.yearsOfExperience}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${doctor.status} ? 'Active' : 'Inactive'"></span></p>
+        </div>
+
+        <!-- Error Message -->
+        <div th:if="${error}" class="error">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Buttons -->
+		<a href="/viewDoctorByIdForm" class="btn">Search Again</a>
+        <a href="/docHome" class="btn">Home</a>
+    </div>
+</body>
+</html>

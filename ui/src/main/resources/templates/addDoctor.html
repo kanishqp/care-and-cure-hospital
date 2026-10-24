@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Doctor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0; /* Light blue background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 50%;
+            max-width: 800px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+		h2 {
+		   font-family: 'Poppins', serif;
+		   font-size: 32px;
+		   color: #000; /* Light blue heading */
+		   margin-bottom: 20px;
+		}
+
+        /* Form Group Styling */
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            flex: 1;
+            font-weight: 500;
+            color: #000; /* Light blue label */
+            margin-right: 10px;
+        }
+
+        input, select {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff; /* Light blue focus */
+            box-shadow: 0 0 8px rgba(30, 144, 255, 0.3);
+            outline: none;
+        }
+
+        /* Button Styling */
+        .btn {
+            background: linear-gradient(135deg, #1e90ff, #00bfff); /* Light blue gradient */
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(30, 144, 255, 0.3);
+        }
+
+        /* Home Link Styling */
+        .home-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff; /* Light blue link */
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .home-link:hover {
+            color: #007bff; /* Lighter blue on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 80%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            label {
+                margin-bottom: 5px;
+            }
+
+            input, select {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+
+        /* Additional Styles for Available Slots */
+        .available-slots-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .slot-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .slot-group input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+		.remove-slot {
+			background: none;
+			border: none;
+			color: red;
+			font-size: 18px;
+			cursor: pointer;
+			margin-left: 1px;
+			margin-right: 4px;
+		}
+
+		.remove-slot:hover {
+		   color: darkred;
+		}
+
+		.add-slot-link {
+			color: #007bff;
+			cursor: pointer;
+			font-weight: bold;
+			text-decoration: none;
+			display: block;
+			margin-top: 10px;
+			margin-left:10px;
+	    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Doctor</h2>
+        <form th:action="@{/addDoctor}" th:object="${doctor}" method="post" id="doctorForm">
+            <div class="form-group">
+                <label>First Name:</label>
+                <input type="text" th:field="*{doctorName.firstName}" required>
+                <p th:if="${#fields.hasErrors('doctorName.firstName')}" th:errors="*{doctorName.firstName}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input type="text" th:field="*{doctorName.lastName}" required>
+                <p th:if="${#fields.hasErrors('doctorName.lastName')}" th:errors="*{doctorName.lastName}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Specialization:</label>
+                <input type="text" th:field="*{specialization}" required>
+                <p th:if="${#fields.hasErrors('specialization')}" th:errors="*{specialization}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Qualification:</label>
+                <input type="text" th:field="*{qualification}" required>
+                <p th:if="${#fields.hasErrors('qualification')}" th:errors="*{qualification}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Contact Number:</label>
+                <input type="text" th:field="*{contactNumber}" required>
+                <p th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Email ID:</label>
+                <input type="email" th:field="*{emailId}" required>
+                <p th:if="${#fields.hasErrors('emailId')}" th:errors="*{emailId}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <select th:field="*{gender}">
+                    <option value="">Select</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHER">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <input type="text" th:field="*{location}" required>
+                <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Consultation Fees:</label>
+                <input type="number" th:field="*{consultationFees}" required>
+                <p th:if="${#fields.hasErrors('consultationFees')}" th:errors="*{consultationFees}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Date of Joining:</label>
+                <input type="date" th:field="*{dateOfJoining}" required>
+            </div>
+            <div class="form-group">
+                <label>Years of Experience:</label>
+                <input type="number" th:field="*{yearsOfExperience}" required>
+                <p th:if="${#fields.hasErrors('yearsOfExperience')}" th:errors="*{yearsOfExperience}" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <label>Is Surgeon?</label>
+                <select th:field="*{isSurgeon}">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Status:</label>
+                <select th:field="*{status}">
+                    <option value="true">Active</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Available Slots:</label>
+                <div class="available-slots-container">
+                    <div class="slot-group">
+                        <input type="datetime-local" name="availableSlots" required>
+                        <p th:if="${#fields.hasErrors('availableSlots')}" th:errors="*{availableSlots}" class="error-message"></p>
+                    </div>
+                </div>
+                <a class="add-slot-link" onclick="addSlot()">Add Slot</a>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        <a href="/docHome" class="home-link">Home</a>
+    </div>
+
+    <script>
+        function addSlot() {
+            const slotsContainer = document.querySelector('.available-slots-container');
+            const slotCount = slotsContainer.querySelectorAll('.slot-group').length;
+
+            // Create a new slot group
+            const slotGroup = document.createElement('div');
+            slotGroup.className = 'slot-group';
+
+            // Add datetime input
+            const input = document.createElement('input');
+            input.type = 'datetime-local';
+            input.name = 'availableSlots';
+            input.required = true;
+            slotGroup.appendChild(input);
+
+            // Add remove button (cross symbol) if it's not the first slot
+            if (slotCount > 0) {
+                const removeButton = document.createElement('span');
+                removeButton.className = 'remove-slot';
+                removeButton.innerHTML = '×';
+                removeButton.onclick = function () {
+                    slotGroup.remove();
+                };
+                slotGroup.appendChild(removeButton);
+            }
+
+            // Add the new slot group to the container
+            slotsContainer.appendChild(slotGroup);
+        }
+
+        // Prevent form submission if there are validation errors
+        document.getElementById("doctorForm").addEventListener("submit", function(event) {
+            let errorMessages = document.querySelectorAll(".error-message");
+            if (errorMessages.length > 0) {
+                event.preventDefault(); // Stop form submission
+                alert("Please correct the errors before submitting.");
+            }
+        });
+    </script>
+</body>
+</html>

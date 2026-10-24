@@ -1,0 +1,13 @@
+target/
+bin/
+.metadata/
+.settings/
+.classpath
+.project
+.factorypath
+.vscode/
+.idea/
+*.bak
+*.log
+.DS_Store
+src/main/resources/application.properties

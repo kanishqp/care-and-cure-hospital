@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bill Home</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <link rel="icon" th:href="@{/images/fevicon.png}" type="image/gif">
+    <link rel="stylesheet" th:href="@{/css/jquery.mCustomScrollbar.min.css}">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <link rel="stylesheet" th:href="@{'https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css'}" type="text/css" />
+
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F0F0F0; /* Light Gray */
+            color: #333; /* Dark Gray for readability */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF; /* Primary Blue */
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        /* Home Container */
+        .home_container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Card Styles */
+        .card {
+            background: #007BFF; /* Primary Blue */
+            color: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            width: 320px;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            background: #0056b3; /* Darker Blue on hover */
+        }
+
+        .card a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Navigation Dropdown */
+        .nav-item.dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute !important;
+            top: 50px !important;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #007BFF;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 250px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .dropdown-menu li {
+            padding: 10px;
+        }
+
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Red Accent for Alerts */
+        .alert {
+            background-color: #D32F2F; /* Red Accent */
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Billing Management Portal</h1>
+
+    <div class="home_container">
+        <div class="card">
+            <a th:href="@{/billing/addNewBill}">Add new Transaction</a>
+        </div>
+        <div class="card">
+            <a th:href="@{/billing/updateBill}">Update a Transaction</a>
+        </div>
+        <div class="card">
+            <a th:href="@{/billing/viewTransaction}">View Transactions</a>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Update Bill</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+    <!-- Search Form -->
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4">Search Patient by ID</h2>
+        <form method="get" action="/billing/update/search" class="flex gap-2">
+            <input type="number" name="patientId" placeholder="Enter Patient ID" required
+                class="w-full p-2 border border-gray-300 rounded-md" />
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                Search
+            </button>
+        </form>
+    </div>
+
+    <!-- Billing Summary -->
+    <div th:if="${patientId}" class="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-6">
+
+        <h2 class="text-2xl font-bold mb-4">
+            Bills for Patient ID: <span th:text="${patientId}"></span>
+        </h2>
+
+        <!-- No Bills Message -->
+        <div th:if="${#lists.isEmpty(bills)}">
+            <p class="text-center text-red-500 font-semibold mb-4">No bills found for this patient.</p>
+        </div>
+
+        <!-- Bill Table -->
+        <table th:if="${!#lists.isEmpty(bills)}" class="w-full border-collapse border border-gray-300 mb-6">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2">Bill ID</th>
+                    <th class="border border-gray-300 px-4 py-2">Date</th>
+                    <th class="border border-gray-300 px-4 py-2">Description</th>
+                    <th class="border border-gray-300 px-4 py-2">Total Amount</th>
+                    <th class="border border-gray-300 px-4 py-2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="bill : ${bills}" class="text-center bg-white hover:bg-gray-100">
+                    <td class="border border-gray-300 px-4 py-2" th:text="${bill.billId}"></td>
+                    <td class="border border-gray-300 px-4 py-2" th:text="${bill.billDate}"></td>
+                    <td class="border border-gray-300 px-4 py-2" th:text="${bill.description}"></td>
+                    <td class="border border-gray-300 px-4 py-2 font-bold text-green-600"
+                        th:text="${bill.totalAmount}"></td>
+                    <td class="border border-gray-300 px-4 py-2">
+						<form method="get" th:action="@{/billing/edit}">
+						    <input type="hidden" name="billId" th:value="${bill.billId}" />
+						    <input type="hidden" name="patientId" th:value="${patientId}" />
+						    <button type="submit" class="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600">Update</button>
+						</form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Update Bill Form -->
+        <div th:if="${bill}">
+            <h3 class="text-xl font-semibold mt-6 mb-3">Update Bill ID: <span th:text="${bill.billId}"></span></h3>
+            <form th:action="@{/billing/update}" method="post"
+                class="bg-gray-50 p-4 rounded-md shadow-md grid grid-cols-2 gap-4">
+
+				<input type="hidden" name="billId" th:value="${bill.billId}" />
+				 <input type="hidden" name="patientId" th:value="${patientId}" />
+
+                <div>
+                    <label class="block font-semibold">Consultation Fees:</label>
+                    <input type="number" name="consultationFees" th:value="${bill.consultationFees}" required
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label class="block font-semibold">Medicine Fees:</label>
+                    <input type="number" name="medicineFees" th:value="${bill.medicineFees}"
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label class="block font-semibold">Test Charges:</label>
+                    <input type="number" name="testCharges" th:value="${bill.testCharges}"
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label class="block font-semibold">Miscellaneous Charges:</label>
+                    <input type="number" name="miscellaneousCharge" th:value="${bill.miscellaneousCharge}"
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div class="col-span-2">
+                    <label class="block font-semibold">Description:</label>
+                    <input type="text" name="description" th:value="${bill.description}" required
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label class="block font-semibold">Is Insurance Applicable?</label>
+                    <select name="isInsuranceApplicable" class="w-full p-2 border border-gray-300 rounded-md">
+                        <option th:selected="${bill.isInsuranceApplicable}" value="true">Yes</option>
+                        <option th:selected="${!bill.isInsuranceApplicable}" value="false">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-semibold">Apply Tax?</label>
+                    <select name="tax" class="w-full p-2 border border-gray-300 rounded-md">
+                        <option th:selected="${bill.tax}" value="true">Yes</option>
+                        <option th:selected="${!bill.tax}" value="false">No</option>
+                    </select>
+                </div>
+
+                <button type="submit"
+                    class="col-span-2 mt-4 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+                    Update Bill
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

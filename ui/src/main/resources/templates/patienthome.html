@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Management System</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            background-color: #0056b3;
+            color: white;
+            width: 250px;
+            height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+        }
+
+        .sidebar a {
+            color: white;
+            font-size: 16px;
+            padding: 12px 20px;
+            text-decoration: none;
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: transparent;
+            text-align: left;
+            position: relative;
+        }
+
+        .sidebar a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: white;
+            opacity: 0.3;
+        }
+
+        .sidebar a:hover {
+            background-color: #007bff;
+            color: white;
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            background-color: #f0f8ff;
+        }
+
+        .header {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .container p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Patient Management</h2>
+        <a th:href="@{/ui/patients/add}">Register New Patient</a>
+		 <a th:href="@{/ui/patients/enterId}">Update Patient</a>
+		<a th:href="@{/ui/patients/enterPatientId}">View Patient Details</a>
+        <a th:href="@{/ui/patients/all}">View All Patients</a>
+        <a th:href="@{/ui/patients/status/active}">View Active Patients</a>
+        <a th:href="@{/ui/patients/status/inactive}">View Inactive Patients</a>
+        <a th:href="@{/ui/patients/report/dailyAppointments}">Daily Appointment Report</a>
+        <a th:href="@{/ui/patients/report/noShows}">No-Show Report</a>
+        <a th:href="@{/ui/patients/report/healthIssue}">Patients by Health Issue</a>
+    </div>
+    <div class="content">
+        <div class="header">Welcome to the Patient Management System</div>
+        <div class="container">
+            <p>Select an option from the left to manage patients.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Doctor Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #f0f0f0; /* Light Gray background */
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(135deg, #1e90ff, #00bfff); /* Light blue gradient */
+            width: 100%;
+            padding: 60px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: white;
+            font-family: 'Poppins', serif;
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1.5px;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Grid Layout for Features */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Feature Box Styling */
+        .feature-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e90ff, #00bfff);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .feature-box:hover::before {
+            opacity: 1;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-box:hover .icon,
+        .feature-box:hover .title,
+        .feature-box:hover .description {
+            color: white;
+            z-index: 2;
+        }
+		
+		a {
+		    text-decoration: none;
+		    color: inherit;
+		}
+
+        .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #007bff; /* Light blue icon */
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #007bff; /* Light blue text */
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #666;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #1e90ff, #00bfff); /* Light blue gradient */
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 36px;
+            }
+
+            header p {
+                font-size: 16px;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .feature-box {
+                padding: 25px;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+            .icon {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            header p {
+                font-size: 14px;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .feature-box {
+                padding: 20px;
+            }
+
+            .title {
+                font-size: 18px;
+            }
+
+            .icon {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Doctor Management System</h1>
+        <p>Efficiently manage doctors, schedules, and consultations.</p>
+    </header>
+    <div class="grid-container">
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-user-md"></i></div>
+            <div class="title"><a th:href="@{/addDoctorForm}">Add Doctor</a></div>
+            <div class="description">Add new doctors to the system.</div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-edit"></i></div>
+            <div class="title"><a th:href="@{/enterDoctorId}">Update Doctor</a></div>
+            <div class="description">Edit existing doctor details.</div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-id-badge"></i></div>
+            <div class="title"><a th:href="@{/viewDoctorByIdForm}">View Doctor by ID</a></div>
+            <div class="description">Search for doctors using their ID.</div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-stethoscope"></i></div>
+            <div class="title"><a th:href="@{/viewDoctorBySpecializationForm}">View Doctor By Specialization</a></div>
+            <div class="description">Find doctors by their specialization.</div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-users"></i></div>
+            <div class="title"><a th:href="@{/viewAllDoctors}">View All Doctors</a></div>
+            <div class="description">See a list of all doctors in the system.</div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-user-check"></i></div>
+            <div class="title"><a th:href="@{/viewAllActiveDoctors}">View All Active Doctors</a></div>
+            <div class="description">View doctors currently available.</div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-clock"></i></div>
+            <div class="title"><a th:href="@{/viewDoctorAvailabilityBySlotForm}">View Doctors By Slot Availability</a></div>
+            <div class="description">Check doctors available in specific time slots.</div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-calendar-check"></i></div>
+            <div class="title"><a th:href="@{/viewDoctorAvailabilityByDayForm}">View Doctors By Day Availability</a></div>
+            <div class="description">Find doctors available on specific days.</div>
+        </div>
+        <div class="feature-box">
+            <div class="icon"><i class="fas fa-chart-line"></i></div>
+            <div class="title"><a th:href="@{/viewDoctorsByConsultationCountForm}">View Doctors By Consultation Count</a></div>
+            <div class="description">See doctors ranked by consultation count.</div>
+        </div>
+		<div class="feature-box">
+		    <div class="icon"><i class="fas fa-money-bill-wave"></i></div>
+		    <div class="title"><a th:href="@{/getDoctorRevenueReportForm}">Get Doctor Revenue</a></div>
+		    <div class="description">Generate revenue report for a specific doctor within a date range.</div>
+		</div>
+		<div class="feature-box">
+		    <div class="icon"><i class="fas fa-user-minus"></i></div>
+		    <div class="title"><a th:href="@{/getLowConsultationDoctorsReportForm}">Low Consultation Doctors</a></div>
+		    <div class="description">View doctors with low consultation counts within a date range.</div>
+		</div>
+		<div class="feature-box">
+		    <div class="icon"><i class="fas fa-user-check"></i></div>
+		    <div class="title"><a th:href="@{/FrequentlyBookedDoctorsReportForm}">Most Frequently Booked Doctors</a></div>
+		    <div class="description">View doctors with the highest number of bookings within a date range.</div>
+		</div>
+		<div class="feature-box">
+		    <div class="icon"><i class="fas fa-calendar-check"></i></div>
+		    <div class="title"><a th:href="@{/getDoctorAvailabilityReportForm}">Doctor Availability Report</a></div>
+		    <div class="description">Check doctor availability for a specific date.</div>
+		</div>
+		<div class="feature-box">
+			<div class="icon"><i class="fas fa-list"></i></div>
+			<div class="title"><a th:href="@{/getDoctorAppointmentReportForm}">Doctor Appointment Report</a></div>
+			<div class="description">Check doctor appointments for a specific date range.</div>
+		</div>
+
+    </div>
+    <footer>
+        &copy; 2025 Doctor Management System. All Rights Reserved.
+    </footer>
+</body>
+</html>
